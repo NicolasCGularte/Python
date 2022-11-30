@@ -1,0 +1,65 @@
+import time
+
+print('*'*50)
+print(f'{"Matadores de Dragão":^50}')
+print('*'*50)
+
+'''(as abreviações significam o seguinte: 
+d: vida do dragão
+atkdd: ataque do dragão
+atk: meu ataque
+vd: minha vida
+df: minha defesa
+pd: poder do dragão)
+'''
+
+
+vida_dragao = int(2000)
+meu_ataque = int(500)
+ataque_dragao = int(500)
+minha_vida = int(2000)
+minha_defesa = int(5000)
+defesa_dragao = int(5000)
+dano_dragao = (vida_dragao - meu_ataque)
+meu_dano = (minha_vida - ataque_dragao)
+dano_defesa_dragao = (defesa_dragao - meu_ataque)
+dano_minha_defesa = (minha_defesa - ataque_dragao)
+
+
+print('Vamos cavaleiro! Venha lutar ao meu lado contra o dragão para salvar a princesa do alto da Torre!!')
+nome = input('Não da pra te chamar de cavaleiro toda hora, então, qual é seu nome? ').upper().strip()
+print(f'Certo {nome} vamos lutar contra o dragão')
+
+while defesa_dragao == 5000:
+        print(f'-{nome} ataca-')
+        time.sleep(1.2)
+        print(f"Boa, conseguimos diminuir a defesa dele!!! {dano_defesa_dragao}")
+        defesa_dragao -= meu_ataque
+        if defesa_dragao == 0:
+            print('Bom trabalho! Conseguimkos derrubar a defesa da Fera!!!')
+            time.sleep(1.2)
+        if minha_defesa != 5000:
+            print('-O dragão ataca-')
+            print(f'Oh não, ele conseguiu atingir sua defesa, tenha CUIDADO!!! {dano_minha_defesa}')
+            minha_defesa -= ataque_dragao
+            print('-O dragão ataca-')
+        if ataque_dragao < minha_defesa:
+            print(f'Oh não, ele conseguiu atingir sua defesa, tenha CUIDADO!!! {dano_minha_defesa}')
+            dano_minha_defesa = (minha_defesa - ataque_dragao)
+            time.sleep(1.2)
+        if minha_defesa == 0:
+            print('Precisamos acabar com isso agora, estamos sem defesa!!!')
+            time.sleep(1.2)
+        if minha_vida < 1000:
+            print(f'Agora você esta a beira da morte, esta só com {meu_dano} de vida, você vai ter que dar o golpe final')
+            meu_dano = (minha_vida - ataque_dragao)
+            time.sleep(1.2)
+        if vida_dragao < 1000:
+            print(f'Boa, estamos quase vencendo esta batalha contra essa Fera!!! {dano_dragao}')
+            dano_dragao = (vida_dragao - meu_ataque)
+            print('Precisamos acabar com isso AGORA!!!')
+            print(f'-{nome} ataca-')
+            print('-Golpe duplo-')
+        if vida_dragao == 0:
+            print(f'-{nome} com um golpe final arranca a cabeça do dragão! Vencemos!\n Agora aprincesa está à salvo graças a você')
+
