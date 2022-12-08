@@ -3,3 +3,6 @@
 #ler a quantidade de gols feitos em cada partida. No final, tudo isso será guardado
 #em dicionário, incluindo o total de gols feitos durante o campeonato.
 
+partidas = list()
+jogador['Nome'] = str(input('Informe o nome do jogador: '))
+jogos = int(input(f"Quantos partidas {jogador['Nome']} jogou? "))
