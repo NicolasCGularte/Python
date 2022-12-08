@@ -1,18 +1,36 @@
-#Escreva um programa queleia nome e média de um aluno, guardando também a situação em um dicionário.
-# No final, mostre o conteúdo da estrutura na tela.
+#Escreva um programa que leia nome e média de um aluno, guardando também a situação em um dicionário.
+# No final, mostre o conteúdo da estrutura na tela
 
-aluno = dict()
+Turma = dict()
+P = 20
+r = 'Resposta Inválida!'
 
-aluno['Nome'] = str(input('Nome do aluno: ')).title().strip()
-aluno['Media'] = float(input('Media do aluno: '))
+Turma['Aluno'] = input('Nome do aluno: ')
+auxiliar = input("Digite a media: ")
+while not auxiliar.isnumeric():
+    auxiliar = input("Erro: Tente novamente. Digite a media: ")
+Turma['Media'] = float(auxiliar)
 
-for key, value in aluno.items():
-    print(f'{key} é igual à {value}!')
 
-print('Situação do aluno é ', end=' ')
-if aluno['Media'] >= 7.0:
-    print(f'\033[34mAprovado\033[m')
-elif 4.0 <= aluno['Media'] < 7.0:
-    print(f'\033[33mRecuperação\033[m')
-else:
-    print(f'\033[31mREPROVADO\033[m')
+print()
+print('#'*P)
+print()
+
+for key, value in Turma.items():
+    print(f"{key} é igual à {value}")
+
+print()
+print('#'*P)
+print()
+
+if Turma['Media'] >= 70:
+    print('Aluno \033[032mAprovado!\033[m')
+elif Turma['Media'] >= 6.9 and Turma['Media'] >= 50:
+    print('Aluno em \033[034mRecuperção!\033[m')
+elif Turma['Media'] < 50:
+    print('Aluno \033[031mREPROVADO!\033[m')
+
+
+
+
+
