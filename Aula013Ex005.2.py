@@ -21,18 +21,18 @@ def sorteio(lista):
 def somaPares(lista):
     somap = 0
     sleep(0.5)
-    for elemento in lista:
-        if elemento % 2 == 0:
-            somap += elemento
+    for valor in lista:
+        if valor % 2 == 0:
+            somap += valor
     print(f"A soma dos valores pares de:\n{lista} é\033[34m\n{somap}\033[m.")
 
 
 def somaImpares(lista):
     somai = 0
     sleep(0.5)
-    for elemento in lista:
-        if elemento % 2 != 0:
-            somai += elemento
+    for valor in lista:
+        if valor % 2 != 0:
+            somai += valor
     print(f"A soma dos valores Impares de:\n{lista} é\033[34m\n{somai}\033[m.")
 
 
