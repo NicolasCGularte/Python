@@ -8,6 +8,13 @@ def linha():
 
 
 def sorteio(lista):
+
+    """
+       Função chamda para realização
+       do sorteio de números aleatórios
+       em uma lista.
+    """
+
     print('Inciando o sorteio:\n ', end=' ')
     for i in range(0, 10):
         sleep(0.5)
@@ -24,6 +31,13 @@ def sorteio(lista):
 
 
 def somaPares(lista):
+
+    """
+       Função cahmada para realizar a soma
+       de todos os números PARES sorteados
+       em uma lista.
+    """
+
     somap = 0
     sleep(0.5)
     for valor in lista:
@@ -33,6 +47,13 @@ def somaPares(lista):
 
 
 def somaImpares(lista):
+
+    """
+        Função cahmada para realizar a soma
+        de todos os números IMPARES sorteados
+        em uma lista.
+    """
+
     somai = 0
     sleep(0.5)
     for valor in lista:
@@ -42,13 +63,21 @@ def somaImpares(lista):
 
 
 def somaTotal(lista):
+
+    """
+       Função cahmada para realizar a soma
+       de todos os números PARES e IMPARES sorteados
+       em uma lista, para obter a SOMA total entre
+       eles.
+    """
+
     soma = 0
     for i in lista:
         soma += i
     print(f"A soma de todos os valores é :\n\033[32m{soma}\033[m")
 
 
-numeros = list()
+'''numeros = list()
 linha()
 sorteio(numeros)
 linha()
@@ -56,4 +85,8 @@ somaPares(numeros)
 linha()
 somaImpares(numeros)
 linha()
-somaTotal(numeros)
+somaTotal(numeros)'''
+print(help(somaPares))
+print(help(somaImpares))
+print(help(somaTotal))
+
