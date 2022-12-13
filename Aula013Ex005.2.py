@@ -1,6 +1,11 @@
 from time import sleep
 from random import randint
 
+def linha():
+    print('*' * 50)
+    print(f"{'Sorteando números Pares e Impares!!':^30}")
+    print('*' * 50)
+
 
 def sorteio(lista):
     print('Inciando o sorteio:\n ', end=' ')
@@ -24,7 +29,7 @@ def somaPares(lista):
     for valor in lista:
         if valor % 2 == 0:
             somap += valor
-    print(f"A soma dos valores pares de:\n{lista} é\033[34m\n{somap}\033[m.")
+    print(f"A soma dos valores pares é:\n\033[34m{somap}\033[m.")
 
 
 def somaImpares(lista):
@@ -33,13 +38,22 @@ def somaImpares(lista):
     for valor in lista:
         if valor % 2 != 0:
             somai += valor
-    print(f"A soma dos valores Impares de:\n{lista} é\033[34m\n{somai}\033[m.")
+    print(f"A soma dos valores Impares é :\n\033[31m{somai}\033[m.")
 
 
-
+def somaTotal(lista):
+    soma = 0
+    for i in lista:
+        soma += i
+    print(f"A soma de todos os valores é :\n\033[32m{soma}\033[m")
 
 
 numeros = list()
+linha()
 sorteio(numeros)
+linha()
 somaPares(numeros)
+linha()
 somaImpares(numeros)
+linha()
+somaTotal(numeros)
