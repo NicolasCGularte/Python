@@ -1,0 +1,62 @@
+def titulo(txt):
+
+    """
+    Função cahamda para inserir um título ou cabeçalho de início do programa!
+    """
+    t = len(txt) + 20
+    print('#' * t)
+    print(f"{txt:^{t}}")
+    print('#' * t)
+
+
+def aumentar(preco):
+    """Função chamada para realizar o calculo de
+       aumento do valor inserido pelo usuário em 10%.
+    """
+    aumento =  preco + (preco / 100 * 10)
+    print(f"==> Aumentado 10%, temos R${aumento:.2f}!")
+
+
+def diminuir(preco):
+    """Função chamada para realizar o calculo
+       de desconto de 13% sobre o valor inserido
+       pelo usuário.
+    """
+    desconto = preco * 13 / 100
+    diminui = preco - desconto
+    print(f"==> Com desconto de 13%, temos R${diminui:.2f}!")
+
+
+def dobro(preco):
+    """Função chamada para realizar o calculo de dobrar
+       o valor inserido pelo usuário, com isso,
+       obtendo o dobro do valor inserido.
+    """
+    mult = preco * 2
+    print(f"==> O dobro de R${preco:.2f} vale R${mult:.2f}!")
+
+
+def metade(preco):
+    """Função chamada para realizar o calculo de dividir
+       o valor inserido pelo usuário, sendo assim,
+       obtendo a metade do valor inseriodo.
+    """
+    div = preco / 2
+    print(f"==> A metade de R${preco:.2f} vale R${div:.2f}!")
+
+
+def formatar(preco=0, moeda='R$'):
+    return f'{moeda}{preco:.2f}'.replace('.',',')
+
+
+def rodape(txt):
+    """Função chamda para inserir uma nota de rodapé,
+       onde o usuário pode inserir um texto para
+       finalizar o programa.
+    """
+    t = len(txt) + 20
+    print('#' * t)
+    print(f"{txt:^{t}}")
+    print('#' * t)
+
+
