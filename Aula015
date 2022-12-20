@@ -150,7 +150,17 @@ def rodape(txt):
     print('=' * t)
 
 
-#Aula015Ex003
+def leiaStr(palavra):
+    while True:
+        try:
+            palavra = str(input("Digite uma palavra: "))
+        except TypeError:
+            print("Digite apenas letras por favor!!! Tente de novo....")
+            continue
+        else:
+            print("Palavra certa!")
+            return palavra
+
 
 
 
