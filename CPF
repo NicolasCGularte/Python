@@ -1,3 +1,8 @@
+
+
+cpf_num = 81597037087
+
+
 #Obter primeiro dígito:
 #1 - Multiplicar os 9 primeiros dígitos do CPF por uma contagem
 #    regressiva iniciando de 10 e terminando em 2
