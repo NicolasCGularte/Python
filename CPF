@@ -1,0 +1,25 @@
+while True:
+    cpf = input("Informe o seu CPF: ")
+    if len(cpf) != 11 or not cpf.isnumeric():
+        print("Dados inseridos incorretamente.\nDigite novamente.")
+        continue
+
+    novo_cpf = cpf[:-2]
+    soma_digitos = 0
+    lista_digitos = []
+    for key, index in enumerate(novo_cpf):
+        key_reverso = len(novo_cpf) + 1 - key
+        lista_digitos.append(key_reverso * int(index))
+        soma_digitos += lista_digitos[key]
+
+    d = 11 - (soma_digitos % 11)
+
+    if (d > 9):
+        d = 11 - d
+
+    '''
+    Os prints abaixo é só para verificação da saída do código.
+    '''
+    print(lista_digitos)
+    print(soma_digitos)
+    print(d)
