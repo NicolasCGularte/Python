@@ -1,63 +1,65 @@
-'''
-#validando primeiro digito...
+from time import sleep
 
-cpf = '111.444.777-35'
-cpf = cpf.replace('.', '').replace('-', '')
-print(cpf[:9])
 
-mult = 10
-soma = 0
-for num in cpf[:9]:
-    print(f'{num}', end=' | ')
-    print(f'{mult = }', end=' | ')
-    valor = int(num)*mult
-    print(f'{valor = }', end=' | ')
-    soma += valor
-    mult -= 1
-    print(f'{soma = }')
-
-quociente = soma // 11
-resto = soma % 11
-
-digito_verif_1 = 0
-if resto >= 2:
-    digito_verif_1 = 11 - resto
+test = input("Informe o CPF: ")
+cpf_formatado = test[:3] + "." + test[3:6] + "." + test[6:9] + "-" + test[9:11]
+cpf = cpf_formatado.replace('.').replace('-')
 print()
-print(f'{digito_verif_1 = }\n')
-
-if digito_verif_1 == int(cpf[9]):
-    print('O primeiro digito é válido')
-if digito_verif_1 == int(cpf[-2]):
-    print('O primeiro digito é válido')
-'''
-
-# validando segundo digito...
-
-cpf = '111.444.777-35'
-cpf = cpf.replace('.', '').replace('-', '')
-print(cpf[:10])
-
-mult = 11
-soma = 0
-for num in cpf[:10]:
-    print(f'{num}', end=' | ')
-    print(f'{mult = }', end=' | ')
-    valor = int(num)*mult
-    print(f'{valor = }', end=' | ')
-    soma += valor
-    mult -= 1
-    print(f'{soma = }')
-
-quociente = soma // 11
-resto = soma % 11
-
-digito_verif_2 = 0
-if resto >= 2:
-    digito_verif_2 = 11 - resto
+print(cpf_formatado)
 print()
-print(f'{digito_verif_2 = }')
+print(cpf)
+print()
 
-if digito_verif_2 == int(cpf[9]):
-    print('O sugundo digito é válido')
-if digito_verif_2 == int(cpf[-2]):
-    print('O segundo digito é válido')
+# mult = 10
+# soma = 0
+# for num in cpf[:9]:
+#     print(f'{num}', end=' | ')
+#     print(f'{mult = }', end=' | ')
+#     valor = int(num)*mult
+#     print(f'{valor = }', end=' | ')
+#     soma += valor
+#     mult -= 1
+#     print(f'{soma = }')
+
+# quociente = soma // 11
+# resto = soma % 11
+
+# digito_verif_1 = 0
+# if resto >= 2:
+#     digito_verif_1 = 11 - resto
+# print()
+# print(f'{digito_verif_1 = }\n')
+
+# if digito_verif_1 == int(cpf[9]):
+#     print('O primeiro digito é válido')
+# elif digito_verif_1 == int(cpf[10]):
+#     print('O primeiro digito é inválido')
+# print()
+
+# sleep(1)
+
+# mult = 11
+# soma = 0
+# for num in cpf[:10]:
+#     print(f'{num}', end=' | ')
+#     print(f'{mult = }', end=' | ')
+#     valor = int(num)*mult
+#     print(f'{valor = }', end=' | ')
+#     soma += valor
+#     mult -= 1
+#     print(f'{soma = }')
+
+# quociente = soma // 11
+# resto = soma % 11
+
+# digito_verif_2 = 0
+# if resto >= 2:
+#     digito_verif_2 = 11 - resto
+# print()
+# print(f'{digito_verif_2 = }')
+# print()
+
+# if digito_verif_2 == int(cpf[10]):
+#     print('O sugundo digito é válido')
+# elif digito_verif_2 == int(cpf[11]):
+#     print('O segundo digito é inválido')
