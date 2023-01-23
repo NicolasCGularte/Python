@@ -59,3 +59,157 @@ with open("resultado.txt", "a") as arquivo:
   # Gere e escreva o CPF no arquivo
   cpf = entrada
   arquivo.append(cpf)  
+
+
+###############################################################################################################################################################
+
+
+
+def lista_str_para_int(lista):
+    """
+    Comverte uma lista de string em uma lista de inteiros
+    """
+    n = len(lista)
+    for n in range(n):
+        lista[n] = int(lista[n])
+    return lista
+
+
+def valida_digito(cpf, digito):
+    """
+    Valida os dígitos do CPF após o '-'
+    1 é o primeiro dígito após o '-'
+    2 é o segundo dígito após o '-'
+    """
+    x = 0
+    y = 9 + digito
+    for n in range(len(cpf) - 3 + digito):
+        x = x + cpf[n] * y
+        y -= 1
+    x = (x * 10) % 11
+    if x == 10:
+        x = 0
+    if x != cpf[-3 + digito]:
+        return False
+    return True
+
+
+def validacao_de_cpf(cpf):
+    cpf = list(cpf)
+    if cpf[3] != "." or cpf[7] != "." or cpf[-3] != "-":
+        return "O formato de CPF digitado não é válido"
+    cpf.remove(".")
+    cpf.remove(".")
+    cpf.remove("-")
+    cpf = lista_str_para_int(cpf)
+    if len(cpf) != 11:
+        return "O formato de CPF digitado não é válido"
+    if valida_digito(cpf, 1) and valida_digito(cpf, 2):
+        return 'O CPF inserido é válido!'
+    raise ValueError("O CPF inserido não é válido. Tente novamente.")
+
+
+cpf_digitado = input("Digite um numero de CPF: ")
+print(validacao_de_cpf(cpf_digitado))?
+
+
+
+
+#########################################################################################################################################################
+
+
+
+
+
+cpf=input('digite um cpf no formato xxx.xxx.xxx-xx:  ')
+while len(cpf)!=14 or cpf[3]!='.' or cpf[7]!='.'or cpf[11]!='-':
+    cpf=input('Digite um CPF no formato xxx.xxx.xxx-xx:   ')
+
+while cpf[0]==cpf[1]==cpf[2]==cpf[4]==cpf[5]==cpf[6]==cpf[8]==cpf[9]==cpf[10]==cpf[12]==cpf[13]:
+    cpf=input('CPF inválido, digite um CPF válido:    ')
+
+validacao1= ((int(cpf[0])*10 + int(cpf[1])*9 + int(cpf[2])*8 + int(cpf[4])*7 + 
+int(cpf[5])*6 + int(cpf[6])*5 + int(cpf[8])*4 + int(cpf[9])*3 + int(cpf[10])*2)*10)%11
+
+validacao2=((int(cpf[0])*11 + int(cpf[1])*10 + int(cpf[2])*9 + int(cpf[4])*8 + 
+int(cpf[5])*7 + int(cpf[6])*6 + int(cpf[8])*5 + int(cpf[9])*4 + int(cpf[10])*3+ 
+int(cpf[12])*2)*10)%11
+
+if validacao1==10:
+    validacao1=0
+if validacao2==10:
+    validacao2=0
+
+if validacao1==int(cpf[12]) and validacao2==int(cpf[13]):
+    print('True')
+else:
+    raise ValueError('CPF Inválido!!')
+  
+  
+  
+  
+  
+  ################################################################################################################################################
+  
+  
+  
+  
+  
+  """
+CPF = 168.995.350-09
+------------------------------------------------
+1 * 10 = 10           #    1 * 11 = 11 <-
+6 * 9  = 54           #    6 * 10 = 60
+8 * 8  = 64           #    8 *  9 = 72
+9 * 7  = 63           #    9 *  8 = 72
+9 * 6  = 54           #    9 *  7 = 63
+5 * 5  = 25           #    5 *  6 = 30
+3 * 4  = 12           #    3 *  5 = 15
+5 * 3  = 15           #    5 *  4 = 20
+0 * 2  = 0            #    0 *  3 = 0
+                      # -> 0 *  2 = 0
+         297          #             343
+11 - (297 % 11) = 11  #     11 - (343 % 11) = 9
+11 > 9 = 0            #
+Digito 1 = 0          #   Digito 2 = 9
+"""
+
+# Loop infinito
+while True:
+    # cpf = '16899535009'
+    cpf = input('Digite um CPF: ')
+
+    if len(cpf) != 11 or not cpf.isnumeric():                       # valida se o CPF vai ter 11 numeros inteiros
+        print('Inválido')
+
+    else:
+        # Loop do CPF
+        novo_cpf = cpf[:-2]  # Elimina os dois últimos digitos do CPF
+        reverso = 10  # Contador reverso
+        total = 0
+
+        for index in range(19):
+            if index > 8:                               # Primeiro índice vai de 0 a 9,
+                index -= 9                              # São os 9 primeiros digitos do CPF
+
+            total += int(novo_cpf[index]) * reverso     # Valor total da multiplicação
+            reverso -= 1                                # Decrementa o contador reverso
+
+            if reverso < 2:
+                reverso = 11
+                d = 11 - (total % 11)
+
+                if d > 9:                                # Se o digito for > que 9 o valor é 0
+                    d = 0
+                total = 0                                # Zera o total
+                novo_cpf += str(d)                       # Concatena o digito gerado no novo cpf
+
+        # Evita sequencias. Ex.: 11111111111, 00000000000...
+        sequencia = novo_cpf == str(novo_cpf[0]) * len(cpf)
+
+        # Descobri que sequências avaliavam como verdadeiro, então também
+        # adicionei essa checagem aqui
+        if cpf == novo_cpf and not sequencia:
+            print('Válido')
+        else:
+            print('Inválido')
