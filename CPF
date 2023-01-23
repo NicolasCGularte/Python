@@ -213,3 +213,29 @@ while True:
             print('Válido')
         else:
             print('Inválido')
+
+
+
+
+#########################################
+
+
+
+cpf = (input ("CPF: "))
+
+def formatcpf(cpf):
+    vezes = 0
+    novo = ""
+    for quantidade in range(11):
+        numero = cpf[quantidade]
+        novo += numero
+        vezes += 1
+        if(quantidade == 8):
+            novo += "-"
+            vezes -= 3
+        if(vezes == 3):
+            novo += "."
+            vezes -= 3
+    return novo
+
+print(formatcpf(cpf))
