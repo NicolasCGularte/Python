@@ -1,10 +1,7 @@
 import datetime
 
 
-def cpf_valido(cpf):
-  numDV1 = numDV2 = 0
-  numCheckDV1 = numCheckDV2 = 0
-  i = 1
+def cpf_valido(cpf): 
   cpf = cpf.replace('.', '').replace('-', '')
   if len(cpf) != 11 or not cpf.isnumeric() or todos_numeros_iguais(cpf):
         return False
@@ -31,11 +28,13 @@ numCheckDV1 = int(CPF[9:10])
 numCheckDV2 = int(CPF[10:11])
 
 # calculo primeiro digito verificador
-def recupera_primeiro_digito(cpf):
+def recupera_primeiro_digito(cpf): 
+  numDV1 = 0
+  numCheckDV1 = int(CPF[9:10])
   for i in range(1, 10):
     numDV1 = numDV1 + int(CPF[i-1:i]) * i
   # resto divisão por 11
-  numDV1 = numDV1 % 11
+    numDV1 = numDV1 % 11
   # se número maior que 10 considerar 0
   if (numDV1 == 10):
     numDV1 = 0
@@ -45,9 +44,11 @@ def recupera_primeiro_digito(cpf):
 
 # digito verificadr 2
 def recupera_segundo_digito(cpf, numDV1):
+  numDV2 = 0 
+  numCheckDV2 = int(CPF[10:11])
   for i in range(2, 11):
     numDV2 = numDV2 + int(CPF[i-1:i]) * (i-1)
-  numDV2 = numDV2 % 11 
+    numDV2 = numDV2 % 11 
   # verificar segundo digito
   if (numDV2 == 10):
     numDV2 = 0
@@ -59,13 +60,12 @@ def recupera_segundo_digito(cpf, numDV1):
 
 if __name__ == '__main__':
     print('Informe o CPF')
-    cpf = input()
+    cpf = str(input())
     if cpf_valido(cpf):
         print('CPF é válido.')
     else:
         print('CPF inválido')
         
- agora = datetime.datetime.now()
- data_str = agora.strftime('%d/%m/%Y %H:%M')
- print(data_str)       
-
+    agora = datetime.datetime.now()
+    data_str = agora.strftime('%d/%m/%Y %H:%M')
+    print(data_str)   
