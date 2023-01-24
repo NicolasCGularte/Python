@@ -1,12 +1,14 @@
 import datetime
 
 
-print('*' * 50)
-print('\n**** Insira um CPF completo (apenas números) ***\n')
-print('*' * 50)
+def cabecalho():
+    print('*' * 50)
+    print('\n**** Insira um CPF completo (apenas números) ***\n')
+    print('*' * 50)
 
 
-try:
+def Cpf_Entra():
+
     test = input("Informe o CPF(SOMENTE NÚMEROS): ")
     cpf_formatado = test[:3] + "." + test[3:6] + \
         "." + test[6:9] + "-" + test[9:11]
@@ -14,100 +16,87 @@ try:
     print('*' * 50)
     print(f"\033[32mO CPF informado foi :\033[m {cpf_formatado}")
     print('*' * 50)
-except TypeError:
-    
 
-
-
-# gera e salva CPF no arquivo resultado.txt
-with open("resultado.txt", "a", encoding="utf-8") as arquivo:
-    aceito = 'Cpf VÁLIDO!'
-    agora = datetime.datetime.now()
-    data_str = agora.strftime('%d/%m/%Y %H:%M')
-    arquivo.write(f'CPF = {str(cpf)}, {aceito}, {data_str}\n')
-    arquivo.close()
-
-# validar quantidade de caracteres digitados
-if len(test) > 14 or len(cpf) < 11 or len(cpf) > 11:
-    with open("log.txt", "a", encoding="utf-8") as arquivo:
-        agora = datetime.datetime.now()
-        data_str = agora.strftime('%d/%m/%Y %H:%M')
-        erro_1 = 'Quantidade de digitos INVÁLIDOS!'
-        arquivo.write(f"Erro = {str(erro_1)}, {test}, {data_str}\n")
-        arquivo.close()
-    print(f"\033[31mCPF INVÁLIDO\033[m")
-else:
-    valid = 0
-    for dig in range(0, 11):
-        valid += int(cpf[dig])
-        dig += 1
-    if int(cpf[0]) == valid / 11:
-        with open("log.txt", "a", encoding="utf-8") as arquivo:
+    if cpf.isnumeric():
+        # gera e salva CPF no arquivo resultado.txt
+        with open("resultado.txt", "a", encoding="utf-8") as arquivo:
+            aceito = 'Cpf VÁLIDO!'
             agora = datetime.datetime.now()
             data_str = agora.strftime('%d/%m/%Y %H:%M')
-            erro_2 = 'Todos digitos são IGUAIS!'
-            arquivo.write(f"Erro = {str(erro_2)}, {test}, {data_str}\n")
+            arquivo.write(f'CPF = {str(cpf)}, {aceito}, {data_str}\n')
+            arquivo.close()
+    else:
+        print("Por favor, digite apenas números!")
+
+    # validar quantidade de caracteres digitados
+    if len(test) > 14 or len(cpf) < 11 or len(cpf) > 11:
+        with open("erros.log", "a", encoding="utf-8") as arquivo:
+            agora = datetime.datetime.now()
+            data_str = agora.strftime('%d/%m/%Y %H:%M')
+            erro_1 = 'Quantidade de digitos INVÁLIDOS!'
+            arquivo.write(f"Erro = {str(erro_1)}, {test}, {data_str}\n")
             arquivo.close()
         print(f"\033[31mCPF INVÁLIDO\033[m")
-
-    # rotina de cálculos do dígito verificador do CPF
     else:
-        # verificação do 10º dígito verificador
-        soma = 0
-        count = 10
-        for i in range(0, len(cpf)-2):
-            soma = soma + (int(cpf[i])*count)
-            i += 1
-            count -= 1
-        dg1 = 11-(soma % 11)
-        if dg1 >= 10:
-            dg1 = 0
+        valid = 0
+        for dig in range(0, 11):
+            valid += int(cpf[dig])
+            dig += 1
+        if int(cpf[0]) == valid / 11:
+            with open("erros.log", "a", encoding="utf-8") as arquivo:
+                agora = datetime.datetime.now()
+                data_str = agora.strftime('%d/%m/%Y %H:%M')
+                erro_2 = 'Todos digitos são IGUAIS!'
+                arquivo.write(f"Erro = {str(erro_2)}, {test}, {data_str}\n")
+                arquivo.close()
+            print(f"\033[31mCPF INVÁLIDO\033[m")
 
-        # verificação do 11º dígito verificador
-        soma = 0
-        count = 10
-        for j in range(1, len(cpf)-1):
-            soma = soma + (int(cpf[j])*count)
-            j += 1
-            count -= 1
-        dg2 = 11-(soma % 11)
-        if dg2 >= 10:
-            dg2 = 0
-        # mensagem ao usuário
+
+def Valida_10Dig():
+    soma = 0
+    count = 10
+    for i in range(0, len(cpf)-2):
+        soma = soma + (int(cpf[i])*count)
+        i += 1
+        count -= 1
+        dg1 = 11-(soma % 11)
+    if dg1 >= 10:
+        dg1 = 0
         if int(cpf[9]) != dg1 or int(cpf[10]) != dg2:
-            with open("log.txt", "a", encoding="utf-8") as arquivo:
+            with open("erros.log", "a", encoding="utf-8") as arquivo:
                 erro_3 = 'Digitos verificadores INVÁLIDOS!'
                 arquivo.write(f"Erro = {str(erro_3)}, {test}, {data_str}\n")
                 arquivo.close()
             print(f"\033[31mCPF INVÁLIDO\033[m")
-        else:
-            aceito = 'Cpf VÁLIDO!'
-            print(f'\033[34m*** CPF VÁLIDO ***\033[m')
+    else:
+        aceito = 'Cpf VÁLIDO!'
+        print(f'\033[34m*** CPF VÁLIDO ***\033[m')
 
 
-print('*' * 50)
-agora = datetime.datetime.now()
-data_str = agora.strftime('%d/%m/%Y %H:%M')
-print(data_str)
-print('*' * 50)
+def Valida_11Dig():
+    soma = 0
+    count = 10
+    for j in range(1, len(cpf)-1):
+        soma = soma + (int(cpf[j])*count)
+        j += 1
+        count -= 1
+        dg2 = 11-(soma % 11)
+    if dg2 >= 10:
+        dg2 = 0
+        if int(cpf[9]) != dg1 or int(cpf[10]) != dg2:
+            with open("erros.log", "a", encoding="utf-8") as arquivo:
+                erro_3 = 'Digitos verificadores INVÁLIDOS!'
+                arquivo.write(f"Erro = {str(erro_3)}, {test}, {data_str}\n")
+                arquivo.close()
+            print(f"\033[31mCPF INVÁLIDO\033[m")
+    else:
+        aceito = 'Cpf VÁLIDO!'
+        print(f'\033[34m*** CPF VÁLIDO ***\033[m')
 
-# # Gere e escreva o CPF no arquivo
-# with open("resultado.txt", "a", encoding="utf-8") as arquivo:
-#     aceito = 'Cpf VÁLIDO!'
-#     arquivo.write(f'CPF = {str(cpf_formatado)}, {aceito}, {data_str}\n')
-#     arquivo.close()
 
-# with open("log.txt", "a", encoding="utf-8") as arquivo:
-#     erro_1 = 'Quantidade de digitos INVÁLIDOS!'
-#     arquivo.write(f"Erro = {str(erro_1)}, {test}, {data_str}\n")
-#     arquivo.close()
-
-# with open("log.txt", "a", encoding="utf-8") as arquivo:
-#     erro_2 = 'Todos digitos são IGUAIS!'
-#     arquivo.write(f"Erro = {str(erro_2)}, {test}, {data_str}\n")
-#     arquivo.close()
-
-# with open("log.txt", "a", encoding="utf-8") as arquivo:
-#     erro_3 = 'Digitos verificadores INVÁLIDOS!'
-#     arquivo.write(f"Erro = {str(erro_3)}, {test}, {data_str}\n")
-#     arquivo.close()
+def Calendario():
+    print('*' * 50)
+    agora = datetime.datetime.now()
+    data_str = agora.strftime('%d/%m/%Y %H:%M')
+    print(data_str)
+    print('*' * 50)
