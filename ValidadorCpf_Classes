@@ -1,0 +1,54 @@
+import re, datetime
+
+class CpfValidador:
+  def __init__(self, cpf):
+    self.cpf = cpf
+
+  def cpf_valido(self):
+    if not self.cpf:
+      return False
+
+    novo_cpf = self.verifica_digitos(self.cpf[:9])
+    novo_cpf = self.verifica_digitos(novo_cpf)
+
+    if novo_cpf == self.cpf:
+      return True
+    return False   
+
+  @staticmethod
+  def verifica_digitos(fatia_cpf):
+    if not fatia_cpf:
+      return False
+
+    seq = fatia_cpf[0]*len(fatia_cpf)
+
+    if seq == fatia_cpf:
+      return False
+
+    soma = 0
+    for chave, multi in enumerate(range(len(fatia_cpf)+1, 1, -1)):
+      soma += int(fatia_cpf[chave])*multi      
+
+    resto = 11 - (soma%11)
+    resto = resto if resto <= 9 else 0  
+    return fatia_cpf + str(resto)
+
+
+
+  @staticmethod
+  def _so_numeros(cpf):
+    return re.sub('[^0-9]', '', cpf)
+
+
+
+cpf = CpfValidador('81597037087')
+if cpf.cpf_valido():
+  print('CPF válido')
+else:
+  print('CPF inválido')
+
+
+agora = datetime.datetime.now()
+data_str = agora.strftime('%d/%m/%Y %H:%M')
+print(data_str)           
+
