@@ -1,49 +1,55 @@
-import re
+import datetime
 
-print('\n**** Insira um CPF completo (apenas números) ***\n')
-
-ValorCPF = input('Digite o CPF: ') # receber entrada do CPF
-entrada = re.findall("\d", ValorCPF) # remover caracteres NÃO numéricos
-
-# validar quantidade de caracteres digitados
-if len(ValorCPF) > 14 or len(entrada) < 11 or len(entrada) > 11:
-    print('CPF INVÁLIDO')
-
-# verificar se todos os dígitos são iguais
-else:
-    valid = 0
-    for dig in range(0, 11):
-        valid += int(entrada[dig])
-        dig += 1
-    if int(entrada[0]) == valid / 11:
-        print("CPF INVÁLIDO")
-
-    # rotina de cálculos do dígito verificador do CPF
+def cpf_valido(cpf):
+    cpf = cpf.replace('.', '').replace('-', '')
+    if len(cpf) != 11 or not cpf.isnumeric() or todos_numeros_iguais(cpf):
+        return False
+    numDV1 = recupera_primeiro_digito(cpf)
+    numDV2 = recupera_segundo_digito(cpf, numDV1)
+    if numDV1 == int(cpf[9]) and numDV2 == int(cpf[10]):
+        return True
     else:
-        # verificação do 10º dígito verificador
-        soma = 0
-        count = 10
-        for i in range(0, len(entrada)-2):
-            soma = soma + (int(entrada[i])*count)
-            i+=1
-            count-=1
-        dg1 = 11-(soma%11)
-        if dg1 >= 10:
-            dg1 = 0
+        return False
 
-        # verificação do 11º dígito verificador
-        soma = 0
-        count = 10
-        for j in range(1, len(entrada)-1):
-            soma = soma + (int(entrada[j])*count)
-            j+=1
-            count-=1
-        dg2 = 11-(soma%11)
-        if dg2 >= 10:
-            dg2 = 0
+def todos_numeros_iguais(cpf):
+    numIG = 0
+    for i in range(0, 11):
+        numIG += int(cpf[i])
+        i += 1
+    if int(cpf[0]) == numIG / 11:
+        print('CPF inválido!')
 
-        # mensagem ao usuário
-        if int(entrada[9]) != dg1 or int(entrada[10]) != dg2:
-            print("CPF INVÁLIDO")
-        else:
-            print('*** CPF VÁLIDO ***')
+def recupera_primeiro_digito(cpf):
+    numDV1 = 0
+    numCheckDV1 = int(cpf[9:10])
+    for i in range(1, 10):
+        numDV1 = numDV1 + int(cpf[i-1:i]) * i
+    numDV1 = numDV1 % 11
+    if (numDV1 == 10):
+        numDV1 = 0
+    if numDV1 != numCheckDV1:
+        print('Digito 1 inválido!')
+    return numDV1
+
+def recupera_segundo_digito(cpf, numDV1):
+    numDV2 = 0
+    numCheckDV2 = int(cpf[10:11])
+    for i in range(2, 11):
+        numDV2 = numDV2 + int(cpf[i-1:i]) * (i-1)
+        numDV2 = numDV2 % 11
+    if (numDV2 == 10):
+        numDV2 = 0
+    if numDV2 != numCheckDV2:
+        print('Digito 2 inválido!')
+    return numDV2
+
+if __name__ == '__main__':
+    print('Informe o CPF')
+    cpf = str(input())
+    if cpf_valido(cpf):
+        print('CPF é válido.')
+    else:
+        print('CPF inválido')
+    agora = datetime.datetime.now()
+    data_str = agora.strftime('%d/%m/%Y %H:%M')
+    print(data_str)
