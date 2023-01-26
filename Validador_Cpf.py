@@ -17,7 +17,8 @@ def todos_numeros_iguais(cpf):
         numIG += int(cpf[i])
         i += 1
     if int(cpf[0]) == numIG / 11:
-        print('CPF inválido!')
+        return True
+    return False
 
 def recupera_primeiro_digito(cpf):
     numDV1 = 0
@@ -28,8 +29,8 @@ def recupera_primeiro_digito(cpf):
     if (numDV1 == 10):
         numDV1 = 0
     if numDV1 != numCheckDV1:
-        print('Digito 1 inválido!')
-    return numDV1
+        return False
+    return True
 
 def recupera_segundo_digito(cpf, numDV1):
     numDV2 = 0
@@ -40,16 +41,25 @@ def recupera_segundo_digito(cpf, numDV1):
     if (numDV2 == 10):
         numDV2 = 0
     if numDV2 != numCheckDV2:
-        print('Digito 2 inválido!')
-    return numDV2
+        return False
+    return True
 
 if __name__ == '__main__':
-    print('Informe o CPF')
-    cpf = str(input())
-    if cpf_valido(cpf):
-        print('CPF é válido.')
-    else:
-        print('CPF inválido')
-    agora = datetime.datetime.now()
-    data_str = agora.strftime('%d/%m/%Y %H:%M')
-    print(data_str)
+    try:
+        print('Informe o CPF')
+        cpf = str(input())
+        if cpf_valido(cpf):
+            print('CPF é válido.')
+            with open("valid_cpf.txt", "a") as valid_file:
+                valid_file.write(cpf + "\n")
+        else:
+            print('CPF inválido')
+            with open("invalid_cpf.txt", "a") as invalid_file:
+                invalid_file.write(cpf + "\n")
+
+        agora = datetime.datetime.now()
+        data_str = agora.strftime('%d/%m/%Y %H:%M')
+        print(data_str)
+    except Exception as e:
+        with open("errors.txt", "a") as error_file:
+            error_file.write("Error: " + str(e) + \n)
