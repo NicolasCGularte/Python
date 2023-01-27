@@ -17,40 +17,36 @@ def Cpf_Entra(cpf):
     print(f"\033[32mO CPF informado foi :\033[m {cpf_formatado}")
     print('*' * 50)
 
-    if cpf.isnumeric():
+      if cpf.isnumeric():
         # gera e salva CPF no arquivo resultado.txt
         with open("resultado.txt", "a", encoding="utf-8") as arquivo:
             aceito = 'Cpf VÁLIDO!'
-            agora = datetime.datetime.now()
+            agora = datahora.datahora.agora()
             data_str = agora.strftime('%d/%m/%Y %H:%M')
             arquivo.write(f'CPF = {str(cpf)}, {aceito}, {data_str}\n')
             arquivo.close()
     else:
-        print("Por favor, digite apenas números!")
+        raise ValueError("Por favor, digite apenas numeros!")
 
-    # validar quantidade de caracteres digitados
-    if len(test) > 14 or len(cpf) < 11 or len(cpf) > 11:
-        with open("erros.log", "a", encoding="utf-8") as arquivo:
-            agora = datetime.datetime.now()
-            data_str = agora.strftime('%d/%m/%Y %H:%M')
-            erro_1 = 'Quantidade de digitos INVÁLIDOS!'
-            arquivo.write(f"Erro = {str(erro_1)}, {test}, {data_str}\n")
-            arquivo.close()
-        print(f"\033[31mCPF INVÁLIDO\033[m")
+    # validar a quantidade de caracteres digitados
+    if len(teste) > 14 or len(cpf) < 11 or len(cpf) > 11:
+        raise ValueError("Quantidade de dígitos INVÁLIDOS!")
     else:
-        valid = 0
+        valido = 0
         for dig in range(0, 11):
-            valid += int(cpf[dig])
+            valido += int(cpf[dig])
             dig += 1
-        if int(cpf[0]) == valid / 11:
-            with open("erros.log", "a", encoding="utf-8") as arquivo:
-                agora = datetime.datetime.now()
-                data_str = agora.strftime('%d/%m/%Y %H:%M')
-                erro_2 = 'Todos digitos são IGUAIS!'
-                arquivo.write(f"Erro = {str(erro_2)}, {test}, {data_str}\n")
-                arquivo.close()
-            print(f"\033[31mCPF INVÁLIDO\033[m")
-
+        if int(cpf[0]) == valido / 11:
+            raise ValueError("Todos os dígitos são IGUAIS!")
+except ValueError as e:
+    with open("erros.log", "a", encoding="utf-8") as arquivo:
+        agora = datahora.datahora.agora()
+        data_str = agora.strftime('%d/%m/%Y %H:%M')
+        arquivo.write(f"Erro = {str(e)}, {teste}, {data_str}\n")
+        arquivo.close()
+    print(f" \033[31mCPF INVÁLIDO \033[m")
+except Exception as e:
+    print("Ocorreu um erro inesperado: ", e)
 
 def Valida_10Dig(cpf, dg2, test, data_str):
     soma = 0
