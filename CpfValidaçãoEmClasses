@@ -1,18 +1,18 @@
 import datetime
 
-class CPFValidation:
+class ValidaCpf:
     def __init__(self, cpf):
         self.cpf = cpf.replace('.', '').replace('-', '')
     
-    def is_valid(self):
-        if len(self.cpf) != 11 or not self.cpf.isnumeric() or self.all_numbers_equal():
+    def cpf_valido(self):
+        if len(self.cpf) != 11 or not self.cpf.isnumeric() or self.numeros_iguai():
             return False
-        numDV1 = self.get_first_digit()
-        numDV2 = self.get_second_digit(numDV1)
+        numDV1 = self.calcula_DV1()
+        numDV2 = self.calcula_DV2(numDV1)
         if int(numDV1) == int(self.cpf[9]) and int(numDV2) == int(self.cpf[10]):
             return True
 
-    def all_numbers_equal(self):
+    def numeros_iguai(self):
         numIG = 0
         for i in range(0, 11):
             numIG += int(self.cpf[i])
@@ -20,7 +20,7 @@ class CPFValidation:
             return True
         return False
     
-    def get_first_digit(self):
+    def calcula_DV1(self):
         numDV1 = 0
         for i in range(1, 10):
             numDV1 = numDV1 + int(self.cpf[i-1:i]) * i
@@ -29,7 +29,7 @@ class CPFValidation:
             numDV1 = 0
         return numDV1
     
-    def get_second_digit(self, numDV1):
+    def calcula_DV2(self, numDV1):
         numDV2 = 0
         for i in range(2, 11):
             numDV2 = numDV2 + int(self.cpf[i-1:i]) * (i-1)
@@ -38,19 +38,19 @@ class CPFValidation:
             numDV2 = 0
         return numDV2
 
-class CPFManager:
+class EntraCpf:
     def __init__(self):
         self.valid_file = open("valid_cpf.txt", "a")
         self.invalid_file = open("invalid_cpf.txt", "a")
         self.error_file = open("errors.txt", "a")
 
-    def check_cpf(self):
+    def verifica_cpf(self):
         try:
             while True:
                 print('Informe o CPF')
                 cpf = str(input())
-                validation = CPFValidation(cpf)
-                if validation.is_valid():
+                Validacao = ValidaCpf(cpf)
+                if Validacao.cpf_valido():
                     print('CPF é válido.')
                     self.valid_file.write(cpf + "\n")
                 else:
@@ -66,4 +66,3 @@ class CPFManager:
             self.valid_file.close()
             self.invalid_file.close()
             self.error_file.close()
-            
